@@ -1,0 +1,17 @@
+{
+    "server":{
+        "port": 9026
+    },
+    "app":{
+        "prefix": "/api/books-i"
+    },
+    "url" :{
+
+    },
+    "db": {
+       "user": "root",
+       "password" :"rahul",
+       "host": "localhost",
+       "mysql_db": "bookcrudwithreact"
+    }
+}

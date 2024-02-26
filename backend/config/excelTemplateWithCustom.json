@@ -1,0 +1,10 @@
+[
+    { "header": "leadFirstName", "key": "", "width": 30 },
+    { "header": "leadLastName", "key": "", "width": 30 },
+    { "header": "leadMobileNo", "key": "", "width": 30 },
+    { "header": "custom_field_1", "key": "", "width": 30 },
+    { "header": "custom_field_2", "key": "", "width": 30 },
+    { "header": "custom_field_3", "key": "", "width": 30 },
+    { "header": "custom_field_4", "key": "", "width": 30 },
+    { "header": "custom_field_5", "key": "", "width": 30 }
+	  ]
