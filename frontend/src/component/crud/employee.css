@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+.AddEmployee {
+    height: 100vh;
+    background-color: rgb(194, 192, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.Empform {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid green;
+    background-color: rgb(78, 96, 199);
+    border-radius: 10px;
+}
+
+.EmpFormInput {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+button{
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: white;
+}
+button:hover{
+    border: 1px solid white;
+    background-color: black;
+    color: azure;  
+}

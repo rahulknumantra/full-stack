@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const Employee = () => {
   const [emp, setEmp] = useState([]);
@@ -51,8 +52,11 @@ const Employee = () => {
             <th>surname</th>
             <th>gender</th>
             <th>department</th>
+            <th>designation</th>
             <th>salary</th>
             <th>age</th>
+            <th>contact</th>
+            <th>address</th>
           </tr>
         </thead>
         <tbody>
@@ -63,13 +67,16 @@ const Employee = () => {
               <td>{e.surname}</td>
               <td>{e.gender}</td>
               <td>{e.department}</td>
+              <td>{e.designation}</td>
               <td>{e.salary}</td>
               <td>{e.age}</td>
+              <td>{e.contact}</td>
+              <td>{e.address}</td>
             </tr>
           ))}
         </tbody>
       </table>
-
+      <button><Link to ="/add">Add New Employee</Link></button>
     </div>
   )
 }

@@ -12,6 +12,6 @@
        "user": "root",
        "password" :"rahul",
        "host": "localhost",
-       "mysql_db": "bookcrudwithreact"
+       "mysql_db": "employee"
     }
 }

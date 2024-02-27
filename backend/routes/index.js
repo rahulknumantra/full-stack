@@ -5,6 +5,7 @@ const getUrlPrefix = config.app.prefix;
 
 const getAllBooksController = require('../controller/getAllBooks');
 const addBookController = require('../controller/addBook');
+const addEmployeeController = require('../controller/addEmployee');
 const getexcelwithcustomController = require('../controller/excelTemplateWithCustom');
 const getEmpDetailsController = require('../controller/getEmpDetails');
 
@@ -25,5 +26,8 @@ router.get(getUrlPrefix + "/excelTemplateDownloadWithCustom", (req, res) => {
   });
   router.get(getUrlPrefix + '/getEmpDetails',(req,res)=>{
     getEmpDetailsController.getEmpDetails(req,res)   
+});
+router.post(getUrlPrefix + '/addEmployee',(req,res)=>{
+    addEmployeeController.addEmployee(req,res)   
 });
 module.exports = router;

@@ -2,7 +2,7 @@ const { connectDatabase } = require("../utils/MySQL/dbConn");
 
 async function getEmpDetails(req, res) {
     try {
-        const q = "SELECT emp.empcode, emp.name, emp.surname, empdet.gender, empdet.department, empdet.salary, empdet.age FROM employee.employee as emp INNER JOIN employee.empdetails as empdet ON emp.empcode = empdet.empcode";
+        const q = "SELECT emp.empcode, emp.name, emp.surname, empdet.gender, empdet.department,empdet.designation, empdet.salary, empdet.age,empdet.contact,empdet.address FROM employee.employee as emp INNER JOIN employee.empdetails as empdet ON emp.empcode = empdet.empcode";
         const response = await connectDatabase(q);
         if (response.dbData.length > 0) {
             return httpResponseSuccessHandler(res, msgCodeJson.ERR004.code, msgCodeJson.ERR004.msg, response.dbData);
