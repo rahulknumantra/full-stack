@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import './employee.css';
 
 const Employee = () => {
   const [emp, setEmp] = useState([]);
@@ -21,7 +22,7 @@ const Employee = () => {
 
   useEffect(() => {
     // Implement your filter logic here
-    const filtered = emp.filter(item => item.name.toLowerCase().includes(filterValue.toLowerCase()) || item.surname.toLowerCase().includes(filterValue.toLowerCase()));
+    const filtered = emp.filter(item => item.name.toLowerCase().includes(filterValue.toLowerCase()) || item.surname.toLowerCase().includes(filterValue.toLowerCase()) ||item.department.toLowerCase().includes(filterValue.toLowerCase()) || item.designation.toLowerCase().includes(filterValue.toLowerCase()));
     setFilteredEmpData(filtered);
   }, [emp, filterValue]);
 
@@ -38,45 +39,67 @@ const Employee = () => {
     link.download = 'emp.csv';
     link.click();
   };
+
+  //handle delete
+  const handleDelete = async (id)=>{
+    try {
+      await axios.delete("http://localhost:9026/api/books-i/deleteEmployee/"+id)
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
-    <div>
-      <h1>Employee List</h1>
-      <label>Search Employee</label>
-      <input type="text" placeholder='Search by Name' value={filterValue} onChange={handleFilterChange} />
-      <button onClick={downloadData} disabled={emp.length === 0}>Download Data</button>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>surname</th>
-            <th>gender</th>
-            <th>department</th>
-            <th>designation</th>
-            <th>salary</th>
-            <th>age</th>
-            <th>contact</th>
-            <th>address</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredEmpData.map((e) => (
-            <tr key={e.empcode}>
-              <td>{e.empcode}</td>
-              <td>{e.name}</td>
-              <td>{e.surname}</td>
-              <td>{e.gender}</td>
-              <td>{e.department}</td>
-              <td>{e.designation}</td>
-              <td>{e.salary}</td>
-              <td>{e.age}</td>
-              <td>{e.contact}</td>
-              <td>{e.address}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button><Link to ="/add">Add New Employee</Link></button>
+    <div className='Employee'>
+      <div className="main_ection">
+        <h1>Employee List</h1>
+        <div className='second_section'>
+          <h2>Search Employee</h2>
+          <input type="text" placeholder='Search by Name ,Surname, Designation and Department' value={filterValue} onChange={handleFilterChange} />
+        </div>
+        <div className='table_section'>
+          <table >
+            <thead>
+              <tr>
+                <th>EMP ID</th>
+                <th>Name</th>
+                <th>surname</th>
+                <th>gender</th>
+                <th>department</th>
+                <th>designation</th>
+                <th>salary</th>
+                <th>age</th>
+                <th>contact</th>
+                <th>address</th>
+                <th>Update</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredEmpData.map((e) => (
+                <tr key={e.empcode}>
+                  <td>{e.empcode}</td>
+                  <td>{e.name}</td>
+                  <td>{e.surname}</td>
+                  <td>{e.gender}</td>
+                  <td>{e.department}</td>
+                  <td>{e.designation}</td>
+                  <td>{e.salary}</td>
+                  <td>{e.age}</td>
+                  <td>{e.contact}</td>
+                  <td>{e.address}</td>
+                  <td><button className='td_Button u_button' ><Link to={`/update/${e.empcode}`}>U</Link></button></td>
+                  <td><button className='td_Button x_button' onClick={()=>handleDelete(e.empcode)}>X</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className='button_section'>
+          <button><Link to="/add">Add New Employee</Link></button>
+          <button onClick={downloadData} disabled={emp.length === 0}>Download Data</button>
+        </div>
+      </div>
     </div>
   )
 }

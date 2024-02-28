@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddEmployee from './component/crud/AddEmployee';
 import Employee from './component/crud/Employee';
+import UpdateEmployee from './component/crud/UpdateEmployee';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Employee />} />
           <Route path="/add" element={<AddEmployee />} />
-          {/* <Route path="/update" element={<Update />} /> */}
+          <Route path="/update/:id" element={<UpdateEmployee />} />
         </Routes>
       </BrowserRouter>
     </div>

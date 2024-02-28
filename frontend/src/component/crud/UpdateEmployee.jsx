@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import './addEmployee.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const AddEmployee = () => {
+const UpdateEmployee = () => {
 
+    const navigate =useNavigate()
+    const location = useLocation()
+    console.log(location.pathname.split('/')[2]);
+    const employeeId= location.pathname.split('/')[2]
     const [emp,setEmp] = useState({
         name: "",
         surname: "",
@@ -19,13 +23,12 @@ const AddEmployee = () => {
     const handleClick = async e =>{
         e.preventDefault();
         try {
-           await axios.post("http://localhost:9026/api/books-i/addEmployee",emp) 
+          await axios.put("http://localhost:9026/api/books-i/updateEmployee"+employeeId,emp) 
            navigate("/")
         } catch (error) {
           console.log(error);  
         }
     }
-    const navigate =useNavigate()
     const handleChange = (e) =>{
         setEmp((prev)=>({...prev, [e.target.name] : e.target.value}))
     }
@@ -71,11 +74,11 @@ const AddEmployee = () => {
                     </div>
                 </div>
                 <div className="button">
-                    <button onClick={handleClick}>Add Employee</button>
+                    <button onClick={handleClick}>Update</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default AddEmployee
+export default UpdateEmployee

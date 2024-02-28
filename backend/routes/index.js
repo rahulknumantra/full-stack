@@ -3,11 +3,10 @@ const express =require ('express');
 const router = express.Router();
 const getUrlPrefix = config.app.prefix;
 
-const getAllBooksController = require('../controller/getAllBooks');
-const addBookController = require('../controller/addBook');
 const addEmployeeController = require('../controller/addEmployee');
-const getexcelwithcustomController = require('../controller/excelTemplateWithCustom');
 const getEmpDetailsController = require('../controller/getEmpDetails');
+const deleteEmployeeController = require('../controller/deleteEmployee');
+const updateEmployeeController = require('../controller/updateEmployee');
 
 console.log('getUrlPrefix',getUrlPrefix);
 
@@ -15,19 +14,17 @@ router.get(getUrlPrefix + '/ping',(req,res)=>{
     res.status(200).send("pong");
 });
 
-router.get(getUrlPrefix + '/getAllBooks',(req,res)=>{
-    getAllBooksController.getAllBooks(req,res)   
-});
-router.post(getUrlPrefix + '/addBook',(req,res)=>{
-    addBookController.addBook(req,res)   
-});
-router.get(getUrlPrefix + "/excelTemplateDownloadWithCustom", (req, res) => {
-    getexcelwithcustomController.excelTemplateWithCustom(req, res);
-  });
   router.get(getUrlPrefix + '/getEmpDetails',(req,res)=>{
     getEmpDetailsController.getEmpDetails(req,res)   
 });
 router.post(getUrlPrefix + '/addEmployee',(req,res)=>{
     addEmployeeController.addEmployee(req,res)   
 });
+router.delete(getUrlPrefix + '/deleteEmployee/:id',(req,res)=>{
+    deleteEmployeeController.deleteEmployee(req,res)   
+});
+router.put(getUrlPrefix + '/updateEmployee/:id',(req,res)=>{
+    updateEmployeeController.updateEmployee(req,res)   
+});
+
 module.exports = router;
