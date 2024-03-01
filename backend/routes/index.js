@@ -7,6 +7,8 @@ const addEmployeeController = require('../controller/addEmployee');
 const getEmpDetailsController = require('../controller/getEmpDetails');
 const deleteEmployeeController = require('../controller/deleteEmployee');
 const updateEmployeeController = require('../controller/updateEmployee');
+const getEmpByIdController = require('../controller/getEmpById');
+
 
 console.log('getUrlPrefix',getUrlPrefix);
 
@@ -26,5 +28,9 @@ router.delete(getUrlPrefix + '/deleteEmployee/:id',(req,res)=>{
 router.put(getUrlPrefix + '/updateEmployee/:id',(req,res)=>{
     updateEmployeeController.updateEmployee(req,res)   
 });
+router.get(getUrlPrefix + '/getEmpById/:id',(req,res)=>{
+    getEmpByIdController.getEmpById(req,res)   
+});
+
 
 module.exports = router;

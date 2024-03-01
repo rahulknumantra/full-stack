@@ -19,7 +19,8 @@ const AddEmployee = () => {
     const handleClick = async e =>{
         e.preventDefault();
         try {
-           await axios.post("http://localhost:9026/api/books-i/addEmployee",emp) 
+          let res= await axios.post("http://localhost:9026/api/books-i/addEmployee",emp) 
+          console.log(res.data.status);
            navigate("/")
         } catch (error) {
           console.log(error);  
