@@ -16,6 +16,8 @@ const AddEmployee = () => {
         contact: "",
         address:""
     });
+    const navigate =useNavigate()
+    
     const handleClick = async e =>{
         e.preventDefault();
         try {
@@ -26,7 +28,6 @@ const AddEmployee = () => {
           console.log(error);  
         }
     }
-    const navigate =useNavigate()
     const handleChange = (e) =>{
         setEmp((prev)=>({...prev, [e.target.name] : e.target.value}))
     }

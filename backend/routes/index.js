@@ -1,4 +1,7 @@
 const express =require ('express');
+const multer = require('multer');
+const parse = require('csv-parse');
+
  const config = require('../config/data/config.json');
 const router = express.Router();
 const getUrlPrefix = config.app.prefix;
@@ -8,6 +11,8 @@ const getEmpDetailsController = require('../controller/getEmpDetails');
 const deleteEmployeeController = require('../controller/deleteEmployee');
 const updateEmployeeController = require('../controller/updateEmployee');
 const getEmpByIdController = require('../controller/getEmpById');
+const addEmployeeExcelController = require('../controller/addEmployeeExcel');
+
 
 
 console.log('getUrlPrefix',getUrlPrefix);
@@ -32,5 +37,11 @@ router.get(getUrlPrefix + '/getEmpById/:id',(req,res)=>{
     getEmpByIdController.getEmpById(req,res)   
 });
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.post(getUrlPrefix + '/addEmployeeExcel', upload.single('csvFile'), (req,res)=>{
+    addEmployeeExcelController.addEmployeeExcel(req,res)   
+});
 
 module.exports = router;

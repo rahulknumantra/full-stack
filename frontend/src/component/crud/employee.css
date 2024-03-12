@@ -56,3 +56,15 @@ table,th,td{
     background-color: black;
     color: red;
 }
+.limit_page_button{
+    padding: 10px;
+    border: 1 px solid red;
+    border-radius: 40%;
+    background-color: chartreuse;
+    color: green;
+}
+.limit_page_button:hover{
+    padding: 10px;
+    background-color: chartreuse;
+    color: green;
+}

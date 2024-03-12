@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import './employee.css';
+import FileUpload from './FileUpload';
 
 const Employee = () => {
   const [emp, setEmp] = useState([]);
   const [filteredEmpData, setFilteredEmpData] = useState([]);
   const [filterValue, setFilterValue] = useState('');
+
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+
   useEffect(() => {
     let fetchAllEmpData = async () => {
       try {
-        let res = await axios.get("http://localhost:9026/api/books-i/getEmpDetails");
+        let res = await axios.get(`http://localhost:9026/api/books-i/getEmpDetails?limit=${limit}&page=${page}`);
         console.log(res.data);
         setEmp(res.data.result);
       } catch (error) {
@@ -18,11 +23,11 @@ const Employee = () => {
       }
     }
     fetchAllEmpData()
-  }, [])
+  }, [page, limit])
 
   useEffect(() => {
     // Implement your filter logic here
-    const filtered = emp.filter(item => item.name.toLowerCase().includes(filterValue.toLowerCase()) || item.surname.toLowerCase().includes(filterValue.toLowerCase()) ||item.department.toLowerCase().includes(filterValue.toLowerCase()) || item.designation.toLowerCase().includes(filterValue.toLowerCase()));
+    const filtered = emp.filter(item => item.name.toLowerCase().includes(filterValue.toLowerCase()) || item.surname.toLowerCase().includes(filterValue.toLowerCase()) || item.department.toLowerCase().includes(filterValue.toLowerCase()) || item.designation.toLowerCase().includes(filterValue.toLowerCase()));
     setFilteredEmpData(filtered);
   }, [emp, filterValue]);
 
@@ -41,9 +46,9 @@ const Employee = () => {
   };
 
   //handle delete
-  const handleDelete = async (id)=>{
+  const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:9026/api/books-i/deleteEmployee/"+id)
+      await axios.delete("http://localhost:9026/api/books-i/deleteEmployee/" + id)
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -89,15 +94,22 @@ const Employee = () => {
                   <td>{e.contact}</td>
                   <td>{e.address}</td>
                   <td><button className='td_Button u_button' ><Link to={`/update/${e.empcode}`}>U</Link></button></td>
-                  <td><button className='td_Button x_button' onClick={()=>handleDelete(e.empcode)}>X</button></td>
+                  <td><button className='td_Button x_button' onClick={() => handleDelete(e.empcode)}>X</button></td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <button className='limit_page_button' onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}>pre</button>
+          <span>Page {page}</span>
+          <button className='limit_page_button' onClick={() => setPage((prevPage) => prevPage + 1)}>Next</button>
         </div>
         <div className='button_section'>
           <button><Link to="/add">Add New Employee</Link></button>
           <button onClick={downloadData} disabled={emp.length === 0}>Download Data</button>
+          <button >Download format</button>
+        </div>
+        <div>
+          <FileUpload />
         </div>
       </div>
     </div>
