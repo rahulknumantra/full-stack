@@ -5,11 +5,14 @@ async function getEmpDetails(req, res) {
         const  page = parseInt(req.query.page);
         const  limit = parseInt(req.query.limit);
 
-        const q = "SELECT emp.empcode, emp.name, emp.surname, empdet.gender, empdet.department,empdet.designation, empdet.salary, empdet.age,empdet.contact,empdet.address FROM employee.employee as emp INNER JOIN employee.empdetails as empdet ON emp.empcode = empdet.empcode";
+        // const q = "SELECT emp.empcode, emp.name, emp.surname, empdet.gender, empdet.department,empdet.designation, empdet.salary, empdet.age,empdet.contact,empdet.address FROM employee.employee as emp INNER JOIN employee.empdetails as empdet ON emp.empcode = empdet.empcode";
+
+        const offset = (page - 1) * limit;
+        const q = `SELECT emp.empcode, emp.name, emp.surname, empdet.gender, empdet.department,empdet.designation, empdet.salary, empdet.age,empdet.contact,empdet.address FROM employee.employee as emp INNER JOIN employee.empdetails as empdet ON emp.empcode = empdet.empcode LIMIT ${limit} OFFSET ${offset}`;
         const response = await connectDatabase(q);
         if (response.dbData.length > 0) {
-            let finalResult = await pagination(page,limit,response.dbData)
-            return httpResponseSuccessHandler(res, msgCodeJson.ERR004.code, msgCodeJson.ERR004.msg, finalResult);
+            // let finalResult = await pagination(page,limit,response.dbData)
+            return httpResponseSuccessHandler(res, msgCodeJson.ERR004.code, msgCodeJson.ERR004.msg, response.dbData);
         } else {
             return httpResponseHandlerError(res, msgCodeJson.ERR001.code, msgCodeJson.ERR001.msg);
         }
@@ -19,10 +22,10 @@ async function getEmpDetails(req, res) {
     }
 
 }
-async function pagination(page, limit,allData){
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
-    const paginatedData = allData.slice(startIndex, endIndex);
-    return paginatedData;
-}
+// async function pagination(page, limit,allData){
+//     const startIndex = (page - 1) * limit;
+//     const endIndex = page * limit;
+//     const paginatedData = allData.slice(startIndex, endIndex);
+//     return paginatedData;
+// }
 module.exports.getEmpDetails = getEmpDetails;
