@@ -12,6 +12,9 @@ const deleteEmployeeController = require('../controller/deleteEmployee');
 const updateEmployeeController = require('../controller/updateEmployee');
 const getEmpByIdController = require('../controller/getEmpById');
 const addEmployeeExcelController = require('../controller/addEmployeeExcel');
+const addCandidateController = require('../controller/addCandidate');
+const recruitorController = require('../controller/recruitor');
+
 
 
 
@@ -42,6 +45,12 @@ const upload = multer({ storage: storage });
 
 router.post(getUrlPrefix + '/addEmployeeExcel', upload.single('csvFile'), (req,res)=>{
     addEmployeeExcelController.addEmployeeExcel(req,res)   
+});
+router.post(getUrlPrefix + '/addCandidate',(req,res)=>{
+    addCandidateController.addCandidate(req,res)   
+});
+router.post(getUrlPrefix + '/recruitor',(req,res)=>{
+    recruitorController.recruitor(req,res)   
 });
 
 module.exports = router;
